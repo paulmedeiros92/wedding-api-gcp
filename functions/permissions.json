@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "wedding-63917",
+  "private_key_id": "f5cd80e32383ec4f0960603a5b8c034430a615e7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC9r0XdRyREZ1bX\nCNEUS8Ow2YN3gK9IgPTWN6BM1lqR1XCt8cJSnp2QA5iu5jfoS/DLDKzwIKRSHshc\nsblml4Wivnu6ltFKxCHlDku4UfN0zx79TONMN5oS/48WI/56TpY/7+n2hi1OA6Aq\nOteCXEDBSOiG/HYJwNJJ5plaPXYwwCDC/f6ogViILEApEUMYZtsp05jxbTg3SUBB\n06VPCLR6/aXPLKeJGiUGCwNmLP2hpQnrAaqNKGaNTI22rPZEl18bx2jBcjXaH+Xw\n52Kqfj3FCL+g9WtQvZRYkaFl3x4R0P1hc/IP14dByfN8ONfLGfD4TYx9zy08u62z\n+hW/ZNnzAgMBAAECggEADy7+iq3tK0SSYPgltFg0O+3NZj14ynb4IkWloUDvUwkg\n0euuQGrN9f8zs5xeEUwy5C4JkdcrEB/CrhjT3HB4lARnZxI3gqKci/dO/Fwi/tCt\njF0hPLKetLKcQ4tyDVxJDqkns0IeUkZcBcVcBuVXkaFCa7u9vx4eNygsUlrlIRW8\naY1v57uVzT3+R32jRREx8iOr3TdZpcYeoHlVpdgr6Q2tJSkKq7ZVz9N1fwPD+I3U\nPwzlQbq5pejn2JgQShEE3BO2qOmWdTK4erxllBO6aP0QBrdjhFp7UDcouZlZ3R84\nimrPsb0PyXzrcFO7vskg/4K/KuKCdeu5JdtnYjXOAQKBgQD9e49nvH8KFjbZJ55L\nN7hzgQAAnr/6WrfobofFBlIJx78XIhp2Rm9BmV5KPlmWVNPgFK4ofrkWiTRzrpLj\noaYaVwtxiNiZJyrUA1IXwj3Cv+TWDHnC8C6DLRLX6xwsYtPZZkfw/nIN1g05Aazx\nc7XE/xsAon1YZtetnRGTg/8wcwKBgQC/kYQvaSeclLari3T7EGJTljQ3j1LS1tIg\n8jylFP7NxpbGwRHPbiWwqmRvpBqzHkXBEksZf41OOm3nAyD1i79yyAZMr8Fdg8KH\nqHDfhrAC8Hmm1WoUI11n5pFh5BDzg8wpqNSl+2ZgNrT5E2z1JqWrsr54D/DZysFm\nAKEBndDQgQKBgQDyIXcotmv7rKCT6j5Qx1cQLidccEgd005dXkeespzm7sDgThlM\n5Zcc6G2jKc/VxA3nvJln4TTYDBPodNenTSAnhQJPX1LXaQyGHO3r+AWa5EapGJ2u\n0lL7xrB7RABTfcuznPoXgFZeVRuoWqtisQ7usGiQwKZPLV3UX3cMnEfFdQKBgQCa\nLHq9zVtb4TPCi9Hx3RXFP7V2oZp+pPUoHsw/783BvnnKK8gxsOwUao26a9AxJ8Pr\nxtU6CDWpJ80bhqEX/QhvUBwBy9FLeactlpqAyt0NAIxngIqG+o9J93450lryILhH\nLuE1VEboWB799mxSQHBE5u3zoqCsJ0nO1eK+ckyEAQKBgQDUs9ayifMq7p+JkdQi\n5PqsnqPWhKW8LKFIc0JGJqjlcHlFfstCZJ5KomNztFPhcrIac8IbHmQjky3oDKVo\naqADHYP/LBwwIHhH8HBsilyAFhuBJtsb9PpeJVIq173+IyqKPMSowWdldNv/dRlN\nLlG8Kvg6RaNUwy1Ur1JeYgaFug==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-c9ofy@wedding-63917.iam.gserviceaccount.com",
+  "client_id": "106828637235415262679",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-c9ofy%40wedding-63917.iam.gserviceaccount.com"
+}
