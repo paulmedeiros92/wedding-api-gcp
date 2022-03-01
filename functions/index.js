@@ -18,10 +18,10 @@ app.get("/hello-world", (req, res) => {
 });
 
 // get guests
-app.get("/api/guests", (request, response) => {
+app.get("/api/households", (request, response) => {
   (async () => {
     try {
-      const snapshot = await db.collection("guests").get();
+      const snapshot = await db.collection("households").get();
       return response.status(200).send({
         status: "Success",
         data: snapshot.docs.map((doc) => doc.data()),
@@ -34,10 +34,10 @@ app.get("/api/guests", (request, response) => {
 });
 
 // create guest
-app.post("/api/guest", (request, response) => {
+app.post("/api/households", (request, response) => {
   (async () => {
     try {
-      await db.collection("guests").add(request.body);
+      await db.collection("households").add(request.body);
       return response.status(200).send({status: "Success"});
     } catch (error) {
       console.log(error);
@@ -47,11 +47,19 @@ app.post("/api/guest", (request, response) => {
 });
 
 // update guest
-app.put("/api/guest/:id", (request, response) => {
+app.put("/api/households/:id", (request, response) => {
   (async () => {
     try {
-      await db.collection("guests").doc(request.params.id).set(request.body);
-      return response.status(200).send({status: "Success"});
+      const household = await db.collection("households")
+          .doc(request.params.id).get();
+      if (household.exists) {
+        await db.collection("households")
+            .doc(request.params.id).set(request.body);
+        return response.status(200).send({status: "Success"});
+      } else {
+        return response.status(404)
+            .send({error: `Household "${request.params.id}" not found`});
+      }
     } catch (error) {
       console.log(error);
       return response.status(500).send(error);
