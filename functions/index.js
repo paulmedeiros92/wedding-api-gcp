@@ -42,6 +42,7 @@ app.post("/api/households", (request, response) => {
       household.hashWord = crypto.randomBytes(5).toString("hex");
       household.hasViewed = false;
       household.isAttending = false;
+      household.isMailed = false;
       return household;
     });
     try {
