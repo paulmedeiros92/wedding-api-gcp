@@ -28,9 +28,25 @@ app.get("/api/households", (request, response) => {
         data: snapshot.docs.map((doc) => doc.data()),
       });
     } catch (error) {
-      console.log(error);
       return response.status(500)
           .send({message: "Fail: Did not get households"});
+    }
+  })();
+});
+
+// get household by id
+app.get("/api/households/:id", (request, response) => {
+  (async () => {
+    try {
+      const doc = await db.collection("households")
+          .doc(request.params.id).get();
+      return response.status(200).send({
+        message: `Success: Got household ${request.params.id}`,
+        data: doc.data(),
+      });
+    } catch (error) {
+      return response.status(500)
+          .send({message: `Fail: Did not get household ${request.params.id}`});
     }
   })();
 });
