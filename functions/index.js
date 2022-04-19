@@ -51,14 +51,16 @@ app.get("/api/households/:id", (request, response) => {
   })();
 });
 
-// create households
+// create/update households
 app.post("/api/households", (request, response) => {
   (async () => {
     const enriched = request.body.map((household) => {
-      household.hashWord = crypto.randomBytes(5).toString("hex");
-      household.hasViewed = false;
-      household.isAttending = false;
-      household.isMailed = false;
+      if (!household.hashWord) {
+        household.hashWord = crypto.randomBytes(5).toString("hex");
+        household.hasViewed = false;
+        household.isAttending = false;
+        household.isMailed = false;
+      }
       return household;
     });
     try {
