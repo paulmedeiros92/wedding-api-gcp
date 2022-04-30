@@ -18,85 +18,93 @@ app.get("/hello-world", (req, res) => {
   return res.status(200).send("Hello World!");
 });
 
-// get households
-app.get("/api/households", (request, response) => {
+// get attendees
+app.get("/api/attendees", (request, response) => {
   (async () => {
     try {
-      const snapshot = await db.collection("households").get();
+      const snapshot = await db.collection("attendees").get();
       return response.status(200).send({
-        message: "Success: Got households",
+        message: "Success: Got attendees",
         data: snapshot.docs.map((doc) => doc.data()),
       });
     } catch (error) {
       return response.status(500)
-          .send({message: "Fail: Did not get households"});
+          .send({message: "Fail: Did not get attendees"});
     }
   })();
 });
 
-// get household by id
-app.get("/api/households/:id", (request, response) => {
+// get householdMembers by address
+// requires request body of { address, city, province, country }
+app.get("/api/household/:attendeeId", (request, response) => {
   (async () => {
     try {
-      const doc = await db.collection("households")
-          .doc(request.params.id).get();
+      const householdMember = (await db.collection("attendees")
+          .doc(request.params.attendeeId).get()).data();
+      const householdMemberDocs = await db.collection("attendees")
+          .where("address", "==", householdMember.address)
+          .where("city", "==", householdMember.city)
+          .where("province", "==", householdMember.province)
+          .where("country", "==", householdMember.country).get();
       return response.status(200).send({
-        message: `Success: Got household ${request.params.id}`,
-        data: doc.data(),
+        message: "Success: Got household",
+        data: householdMemberDocs.docs.map((member) => member.data()),
       });
     } catch (error) {
       return response.status(500)
-          .send({message: `Fail: Did not get household ${request.params.id}`});
+          .send({message: "Fail: Did not get household"});
     }
   })();
 });
 
-// create/update households
-app.post("/api/households", (request, response) => {
+// // search for household with name
+// app.get("/api/search", (request, response) => {
+//   (async () => {
+//     try {
+//       const households = await db.collection("households")
+//           .where(
+//               "attendees.firstName",
+//               "==",
+//               request.body.firstName).get();
+//       return response.status(200).send({
+//         message: "Success: Got households",
+//         data: households.docs.map((doc) => doc.data()),
+//       });
+//     } catch (error) {
+//       return response.status(500)
+//           .send({message: "Fail: Did not find households"});
+//     }
+//   })();
+// });
+
+
+// create/update attendees
+app.post("/api/attendees", (request, response) => {
   (async () => {
-    const enriched = request.body.map((household) => {
-      if (!household.hashWord) {
-        household.hashWord = crypto.randomBytes(5).toString("hex");
-        household.hasViewed = false;
-        household.isAttending = false;
-        household.isMailed = false;
+    const enrichedAttendees = request.body.map((attendee) => {
+      if (!attendee.hashWord) {
+        attendee.hashWord = crypto.randomBytes(12).toString("hex");
+        attendee.hasViewed = false;
+        attendee.isAttending = false;
+        attendee.isMailed = false;
       }
-      return household;
+      return attendee;
     });
     try {
-      await Promise.all(enriched.map(async (household) => {
-        return db.collection("households").doc(household.hashWord)
-            .set(household);
-      }));
+      const batch = db.batch();
+      enrichedAttendees
+          .forEach((attendee) => {
+            const attendeesRef = db.collection("attendees")
+                .doc(attendee.hashWord);
+            batch.set(attendeesRef, attendee);
+          });
+      await batch.commit();
       return response.status(200)
-          .send({message: "Success: Added all households"});
+          .send({message: "Success: Added all attendees"});
     } catch (error) {
       console.log(error);
       return response.status(500)
-          .send({message: "Fail: Did not add all households"});
-    }
-  })();
-});
-
-// update household
-app.put("/api/households/:id", (request, response) => {
-  (async () => {
-    try {
-      const household = await db.collection("households")
-          .doc(request.params.id).get();
-      if (household.exists) {
-        await db.collection("households")
-            .doc(request.params.id).set(request.body);
-        return response.status(200)
-            .send({message: `Success: Updated ${request.params.id} household`});
-      } else {
-        return response.status(404).send(
-            {message: `Fail: Household "${request.params.id}" not found`}
-        );
-      }
-    } catch (error) {
-      console.log(error);
-      return response.status(500).send(error);
+          .send({message: "Fail: Did not add all attendees"});
     }
   })();
 });
