@@ -114,6 +114,7 @@ app.post("/api/attendees", (request, response) => {
         attendee.hashWord = crypto.randomBytes(12).toString("hex");
         attendee.hasViewed = false;
         attendee.isMailed = false;
+        attendee.markedForDeletion = false;
       }
       return attendee;
     });
