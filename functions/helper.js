@@ -12,10 +12,19 @@ const cors = require("cors");
 const app = express();
 app.use(cors({ origin: true }));
 
-async function main() {
+async function initializeMarkForDeletion() {
   (await db.collection("attendees").get()).docs.forEach((doc) =>
     doc.ref.update({ markedForDeletion: false })
   );
 }
 
-main();
+async function trimNames() {
+  (await db.collection("attendees").get()).docs.forEach((doc) =>
+    doc.ref.update({
+      firstName: doc.data().firstName.trim(),
+      lastName: doc.data().lastName.trim(),
+    })
+  );
+}
+
+trimNames();
