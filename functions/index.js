@@ -86,7 +86,7 @@ app.get("/api/search", (request, response) => {
           .where("country", "==", householdMember.country)
           .get();
         const docs = householdMemberQuerySnap.docs;
-        if (!docs[0].data().isRead) {
+        if (!docs[0].data().hasViewed) {
           docs.forEach((doc) => doc.ref.update({ hasViewed: true }));
         }
         return response.status(200).send({

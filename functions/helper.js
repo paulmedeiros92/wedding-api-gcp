@@ -27,4 +27,29 @@ async function trimNames() {
   );
 }
 
-trimNames();
+async function markNotViewed(first, last) {
+  const householdMemberSnapshot = await db
+    .collection("attendees")
+    .where("markedForDeletion", "==", false)
+    .where("firstName", "==", first)
+    .where("lastName", "==", last)
+    .limit(1)
+    .get();
+  if (householdMemberSnapshot.size > 0) {
+    const householdMember = householdMemberSnapshot.docs[0].data();
+    const householdMemberQuerySnap = await db
+      .collection("attendees")
+      .where("markedForDeletion", "==", false)
+      .where("address", "==", householdMember.address)
+      .where("city", "==", householdMember.city)
+      .where("province", "==", householdMember.province)
+      .where("country", "==", householdMember.country)
+      .get();
+    const docs = householdMemberQuerySnap.docs;
+    if (docs[0].data().hasViewed) {
+      docs.forEach((doc) => doc.ref.update({ hasViewed: false }));
+    }
+  }
+}
+
+markNotViewed("Isabelle", "Mitchell");
